@@ -40,7 +40,7 @@ export default function Page() {
       <div className="wrap" style={{ paddingBottom: "8px" }}>
         <div className="rise d4" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 24px", fontSize: "15px", color: "var(--ink-soft)" }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: "12px" }}>
-            <Image src="/images/imran-khan-founder.jpg" alt="" width={88} height={88} style={{ width: "44px", height: "44px", borderRadius: "999px", objectFit: "cover" }} />
+            <Image src="/images/imran-khan-portrait.jpg" alt="" width={88} height={88} style={{ width: "44px", height: "44px", borderRadius: "999px", objectFit: "cover" }} />
             <span><b style={{ fontWeight: "600", color: "var(--ink)" }}>Imran Khan</b><br />Founder, Open Canvas</span>
           </span>
           <span style={{ fontFamily: "var(--font-mono)", fontSize: "12px", letterSpacing: ".06em" }}>7 MIN READ · [PUBLISH DATE]</span>
@@ -175,7 +175,7 @@ export default function Page() {
               </div>
             </div>
             <div className="sv" style={{ marginTop: "48px", display: "flex", gap: "20px", alignItems: "flex-start", paddingTop: "32px", borderTop: "1px solid var(--line)" }}>
-              <Image src="/images/imran-khan-founder.jpg" alt="Imran Khan" width={144} height={144} style={{ width: "72px", height: "72px", borderRadius: "999px", objectFit: "cover", flex: "none" }} />
+              <Image src="/images/imran-khan-portrait.jpg" alt="Imran Khan" width={144} height={144} style={{ width: "72px", height: "72px", borderRadius: "999px", objectFit: "cover", flex: "none" }} />
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                 <span style={{ fontFamily: "var(--font-display)", fontSize: "22px", fontWeight: "500" }}>Imran Khan</span>
                 <span style={{ fontSize: "16px", lineHeight: "1.6", color: "var(--ink-soft)" }}>

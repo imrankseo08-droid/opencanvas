@@ -34,7 +34,7 @@ export const site = {
   founder: {
     name: 'Imran Khan',
     jobTitle: 'Founder',
-    image: '/images/imran-khan-founder.jpg',
+    image: '/images/imran-khan-portrait.jpg',
     linkedin: '',
   },
 

@@ -22,7 +22,8 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: '/(.*)', headers: securityHeaders },
-      { source: '/images/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
+      // Photos keep their file names, so cache them for a week (not forever). To force an instant change, use a new file name.
+      { source: '/images/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=86400' }] },
       { source: '/brand/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=604800' }] },
     ];
   },

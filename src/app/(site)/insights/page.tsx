@@ -85,7 +85,7 @@ export default function Page() {
               Most leads aren’t lost to competitors. They’re lost to silence. Here are the five follow-ups we set up first, in order.
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <Image src="/images/imran-khan-founder.jpg" alt="" width={80} height={80} style={{ width: "40px", height: "40px", borderRadius: "999px", objectFit: "cover" }} />
+              <Image src="/images/imran-khan-portrait.jpg" alt="" width={80} height={80} style={{ width: "40px", height: "40px", borderRadius: "999px", objectFit: "cover" }} />
               <span style={{ fontSize: "15px" }}><b style={{ fontWeight: "600" }}>Imran Khan</b>{" · Founder"}</span>
             </div>
           </div>

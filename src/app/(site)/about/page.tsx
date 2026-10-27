@@ -123,7 +123,7 @@ export default function Page() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 400px), 1fr))", gap: "clamp(40px, 6vw, 96px)", alignItems: "center" }}>
             <div className="sv" style={{ maxWidth: "480px", width: "100%" }}>
               <div className="ph" style={{ aspectRatio: "4 / 5" }}>
-                <Image src="/images/imran-khan-founder.jpg" alt="Portrait of Imran Khan, founder of Open Canvas Marketing" fill sizes="(max-width: 760px) 100vw, (max-width: 1200px) 50vw, 600px" style={{ objectFit: "cover" }} />
+                <Image src="/images/imran-khan-portrait.jpg" alt="Portrait of Imran Khan, founder of Open Canvas Marketing" fill sizes="(max-width: 760px) 100vw, (max-width: 1200px) 50vw, 600px" style={{ objectFit: "cover" }} />
                 <span className="ph-notch" style={{ background: "var(--studio-tint)" }} />
                 <span className="ph-dot" />
               </div>
