@@ -1,0 +1,67 @@
+# Push to main → build on GitHub → upload to Namecheap → restart the app.
+# One-time setup (see DEPLOY-GITHUB.md): add the SSH_PRIVATE_KEY secret.
+name: Deploy to Namecheap
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  SSH_HOST: server336.web-hosting.com
+  SSH_PORT: '21098'
+  SSH_USER: openyxrh
+  APP_DIR: opencanvas
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_PUBLIC_SITE_URL: https://www.opencmarketing.com
+      NEXT_PUBLIC_GA_ID: ${{ vars.NEXT_PUBLIC_GA_ID }}
+      NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }}
+      NEXT_PUBLIC_BING_SITE_VERIFICATION: ${{ vars.NEXT_PUBLIC_BING_SITE_VERIFICATION }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build the Namecheap package
+        run: bash scripts/package-namecheap.sh
+
+      - name: Prepare SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Upload to the server
+        run: |
+          rsync -az --delete \
+            --exclude '/node_modules' --exclude '/tmp' --exclude '/stderr.log' \
+            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT" \
+            deploy/opencanvas/ "$SSH_USER@$SSH_HOST:~/$APP_DIR/"
+
+      - name: Restart the app
+        run: |
+          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+            "mkdir -p ~/$APP_DIR/tmp && touch ~/$APP_DIR/tmp/restart.txt; cloudlinux-selector restart --json --interpreter nodejs --app-root $APP_DIR >/dev/null 2>&1 || true"
+
+      - name: Check the live site
+        run: |
+          sleep 8
+          code=$(curl -s -o /dev/null -w '%{http_code}' "$NEXT_PUBLIC_SITE_URL/")
+          echo "Homepage returned $code"
+          test "$code" = "200"
